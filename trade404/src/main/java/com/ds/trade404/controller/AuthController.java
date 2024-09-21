@@ -18,7 +18,13 @@ public class AuthController {
     private UserRepository userRepository;
 
     @PostMapping("/signup")
-    public ResponseEntity<User> register(@RequestBody User user) {
+    public ResponseEntity<User> register(@RequestBody User user) throws Exception {
+
+        User isEmailExisting = userRepository.findByEmail(user.getEmail());
+
+        if(isEmailExisting != null) {
+            throw new Exception("email is already used with another account");
+        }
 
         User newUser = new User();
         newUser.setFullName(user.getFullName());
