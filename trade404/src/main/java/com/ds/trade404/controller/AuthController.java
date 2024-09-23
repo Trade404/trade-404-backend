@@ -90,7 +90,7 @@ public class AuthController {
         if(userDetails == null) {
             throw new BadCredentialsException("invalid username");
         }
-        if(password.equals(userDetails.getPassword())) {
+        if(!password.equals(userDetails.getPassword())) {
             throw new BadCredentialsException("invalid password");
         }
         return new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
