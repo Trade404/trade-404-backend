@@ -42,7 +42,7 @@ public class AuthController {
 
         User isEmailExisting = userRepository.findByEmail(user.getEmail());
 
-        if(isEmailExisting != null) {
+        if (isEmailExisting != null) {
             throw new Exception("email is already used with another account");
         }
 
@@ -86,14 +86,14 @@ public class AuthController {
 
         User authUser = userRepository.findByEmail(userName);
 
-        if(user.getTwoFactorAuth().isEnabled()) {
+        if (user.getTwoFactorAuth().isEnabled()) {
             AuthResponse res = new AuthResponse();
             res.setMessage("Two factor auth is enabled");
             res.setTwoFactorAuthEnabled(true);
             String otp = OtpUtils.generateOTP();
 
             TwoFactorOTP oldTwoFactorOTP = twoFactorOtpService.findByUser(authUser.getId());
-            if(oldTwoFactorOTP != null) {
+            if (oldTwoFactorOTP != null) {
                 twoFactorOtpService.deleteTwoFactorOtp(oldTwoFactorOTP);
             }
 
@@ -117,15 +117,16 @@ public class AuthController {
     private Authentication authenticate(String userName, String password) {
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(userName);
 
-        if(userDetails == null) {
+        if (userDetails == null) {
             throw new BadCredentialsException("invalid username");
         }
-        if(!password.equals(userDetails.getPassword())) {
+        if (!password.equals(userDetails.getPassword())) {
             throw new BadCredentialsException("invalid password");
         }
         return new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
     }
 
+    @PostMapping("/two-factor/otp/{otp}")
     public ResponseEntity<AuthResponse> verifySignInOtp(
             @PathVariable String otp,
             @RequestParam String id) throws Exception {
