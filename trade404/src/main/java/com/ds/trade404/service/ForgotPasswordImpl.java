@@ -6,6 +6,8 @@ import com.ds.trade404.repository.ForgotPasswordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ForgotPasswordImpl implements ForgotPasswordService {
 
@@ -30,16 +32,17 @@ public class ForgotPasswordImpl implements ForgotPasswordService {
 
     @Override
     public ForgotPasswordToken findById(String id) {
-        return null;
+        Optional<ForgotPasswordToken> token = forgotPasswordRepository.findById(id);
+        return token.orElse(null);
     }
 
     @Override
     public ForgotPasswordToken findByUser(Long userId) {
-        return null;
+        return forgotPasswordRepository.findByUserId(userId);
     }
 
     @Override
     public void deleteToken(ForgotPasswordToken token) {
-
+        forgotPasswordRepository.delete(token);
     }
 }
