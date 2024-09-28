@@ -1,9 +1,10 @@
 package com.ds.trade404;
 
+import com.ds.trade404.domain.VerificationType;
 import lombok.Data;
 
 @Data
 public class ForgotPasswordTokenRequest {
     private String sendTo;
-    private String otp;
+    private VerificationType verificationType;
 }
