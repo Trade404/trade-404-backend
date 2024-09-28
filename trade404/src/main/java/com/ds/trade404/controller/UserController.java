@@ -1,9 +1,11 @@
 package com.ds.trade404.controller;
 
-import com.ds.trade404.ForgotPasswordTokenRequest;
+import com.ds.trade404.request.ForgotPasswordTokenRequest;
 import com.ds.trade404.domain.VerificationType;
 import com.ds.trade404.modal.User;
 import com.ds.trade404.modal.VerificationCode;
+import com.ds.trade404.request.ResetPasswordRequest;
+import com.ds.trade404.response.ApiResponse;
 import com.ds.trade404.response.AuthResponse;
 import com.ds.trade404.service.*;
 import com.ds.trade404.utils.OtpUtils;
@@ -108,6 +110,25 @@ public class UserController {
         response.setMessage("Password reset otp sent successfully");
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PatchMapping("/auth/users/reset-password/verify-otp")
+    public ResponseEntity<ApiResponse> resetPassword(
+            @RequestParam String id,
+            @RequestBody ResetPasswordRequest request,
+            @RequestHeader("Authorization") String jwt) throws Exception {
+
+        ForgotPasswordToken forgotPasswordToken = forgotPasswordService.findById(id);
+
+        boolean isVerified = forgotPasswordToken.getOtp().equals(request.getOtp());
+
+        if(isVerified) {
+            userService.updatePassword(forgotPasswordToken.getUser(), request.getPassword());
+            ApiResponse response = new ApiResponse();
+            response.setMessage("password updated successfully");
+            return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
+        }
+        throw new Exception("wrong otp");
     }
 
 }
