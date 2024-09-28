@@ -1,4 +1,4 @@
-package com.ds.trade404;
+package com.ds.trade404.request;
 
 import com.ds.trade404.domain.VerificationType;
 import lombok.Data;
