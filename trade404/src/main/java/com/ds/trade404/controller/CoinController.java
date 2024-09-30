@@ -1,0 +1,20 @@
+package com.ds.trade404.controller;
+
+import com.ds.trade404.service.CoinService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/coins")
+public class CoinController {
+
+    @Autowired
+    private CoinService coinService;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+
+}
