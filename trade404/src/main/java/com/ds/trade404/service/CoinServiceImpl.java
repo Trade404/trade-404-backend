@@ -147,12 +147,44 @@ public class CoinServiceImpl implements CoinService{
     }
 
     @Override
-    public String getTop50CoinByMarketCapRank() {
-        return "";
+    public String getTop50CoinByMarketCapRank() throws Exception {
+
+        String url = "https://api.coingecko.com/api/v3/coins/markets/vs_currency=usd&per_page=50&page=1";
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        try {
+            HttpHeaders headers = new HttpHeaders();
+
+            HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+            return response.getBody();
+        }
+        catch (HttpClientErrorException | HttpServerErrorException e) {
+            throw new Exception(e.getMessage());
+        }
     }
 
     @Override
-    public String getTradingCoins() {
-        return "";
+    public String getTrendingCoins() throws Exception {
+
+        String url = "https://api.coingecko.com/api/v3/search/trending";
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        try {
+            HttpHeaders headers = new HttpHeaders();
+
+            HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+            return response.getBody();
+        }
+        catch (HttpClientErrorException | HttpServerErrorException e) {
+            throw new Exception(e.getMessage());
+        }
     }
 }
