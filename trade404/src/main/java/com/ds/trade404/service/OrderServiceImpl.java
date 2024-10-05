@@ -158,6 +158,6 @@ public class OrderServiceImpl implements OrderService{
         else if (orderType.equals(OrderType.SELL)) {
             return sellAsset(coin, quantity, user);
         }
-        throw  new Exception("invalid order type")
+        throw  new Exception("invalid order type");
     }
 }

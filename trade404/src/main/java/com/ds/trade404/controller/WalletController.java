@@ -4,6 +4,7 @@ import com.ds.trade404.modal.Order;
 import com.ds.trade404.modal.User;
 import com.ds.trade404.modal.Wallet;
 import com.ds.trade404.modal.WalletTransaction;
+import com.ds.trade404.service.OrderService;
 import com.ds.trade404.service.UserService;
 import com.ds.trade404.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class WalletController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/api/wallet")
     public ResponseEntity<Wallet> getUserWallet(@RequestHeader("Authorization") String jwt) throws Exception {
