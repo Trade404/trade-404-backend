@@ -58,7 +58,7 @@ public class WithdrawalController {
             @PathVariable boolean accept,
             @RequestHeader("Authorization") String jwt) throws Exception {
 
-        User user = userService.findUserProfileByJwt(jwt)
+        User user = userService.findUserProfileByJwt(jwt);
 
         Withdrawal withdrawal = withdrawalService.proceedWithdrawal(id, accept);
 
