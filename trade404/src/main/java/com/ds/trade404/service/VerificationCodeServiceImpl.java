@@ -6,9 +6,11 @@ import com.ds.trade404.modal.VerificationCode;
 import com.ds.trade404.repository.VerificationCodeRepository;
 import com.ds.trade404.utils.OtpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class VerificationCodeServiceImpl  implements VerificationCodeService {
 
     @Autowired
