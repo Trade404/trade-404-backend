@@ -27,30 +27,30 @@ public class WithdrawalController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private WalletTransationService walletTransationService;
+//    @Autowired
+//    private WalletTransationService walletTransationService;
 
-    @PostMapping("/api/withdrawal/{amount}")
-    public ResponseEntity<?> withdrawalRequest(
-            @PathVariable Long amount,
-            @RequestHeader("Authorization") String jwt) throws Exception {
-
-        User user = userService.findUserProfileByJwt(jwt);
-        Wallet userWallet = walletService.getUserWallet(user);
-
-        Withdrawal withdrawal = withdrawalService.requestWithdrawal(amount, user);
-        walletService.addBalance(userWallet, -withdrawal.getAmount());
-
-        WalletTransaction walletTransaction = walletTransationService.createTransaction(
-                userWallet,
-                WalletTransactionType.WITHDRAW,
-                null,
-                "bank account withdrawal",
-                withdrawal.getAmount()
-        );
-
-        return new ResponseEntity<>(withdrawal, HttpStatus.OK);
-    }
+//    @PostMapping("/api/withdrawal/{amount}")
+//    public ResponseEntity<?> withdrawalRequest(
+//            @PathVariable Long amount,
+//            @RequestHeader("Authorization") String jwt) throws Exception {
+//
+//        User user = userService.findUserProfileByJwt(jwt);
+//        Wallet userWallet = walletService.getUserWallet(user);
+//
+//        Withdrawal withdrawal = withdrawalService.requestWithdrawal(amount, user);
+//        walletService.addBalance(userWallet, -withdrawal.getAmount());
+//
+//        WalletTransaction walletTransaction = walletTransationService.createTransaction(
+//                userWallet,
+//                WalletTransactionType.WITHDRAW,
+//                null,
+//                "bank account withdrawal",
+//                withdrawal.getAmount()
+//        );
+//
+//        return new ResponseEntity<>(withdrawal, HttpStatus.OK);
+//    }
 
     @PatchMapping("/api/withdrawal/{id}/proceed/{accept}")
     public ResponseEntity<?> proceedWithdrawal(
