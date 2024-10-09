@@ -43,6 +43,7 @@ public class PaymentServiceImpl implements PaymentService {
         paymentOrder.setUser(user);
         paymentOrder.setAmount(amount);
         paymentOrder.setPaymentMethod(paymentMethod);
+        paymentOrder.setStatus(PaymentOrderStatus.PENDING);
 
         return paymentOrderRepository.save(paymentOrder);
     }
@@ -55,6 +56,9 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Boolean proceedPaymentOrder(PaymentOrder paymentOrder, String paymentId) throws RazorpayException {
+        if(paymentOrder.getStatus() == null) {
+            paymentOrder.setStatus(PaymentOrderStatus.PENDING);
+        }
         if(paymentOrder.getStatus().equals(PaymentOrderStatus.PENDING)) {
             if(paymentOrder.getPaymentMethod().equals(PaymentMethod.RAZORPAY)) {
                 RazorpayClient razorpay = new RazorpayClient(apiKey, apiSecretKey);
