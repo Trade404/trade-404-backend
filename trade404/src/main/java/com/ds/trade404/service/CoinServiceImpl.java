@@ -149,7 +149,7 @@ public class CoinServiceImpl implements CoinService{
     @Override
     public String getTop50CoinByMarketCapRank() throws Exception {
 
-        String url = "https://api.coingecko.com/api/v3/coins/markets/vs_currency=usd&per_page=50&page=1";
+        String url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=50&page=1";
 
         RestTemplate restTemplate = new RestTemplate();
 
